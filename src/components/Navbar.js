@@ -8,6 +8,7 @@ const Navbar = () => {
             {/* Banner Credits: <a href="http://www.freepik.com">Designed by Harryarts / Freepik</a> */}
             <img src={banner} alt="NavBanner"/>
             <h1><span>MARVEL</span> HEROES</h1>
+            <a href="https://github.com/stephin007/contactkeeper" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
         </div>
     )
 }
