@@ -20,6 +20,7 @@ body{
   color: #333;
 }
 
+/* BANNER CSS START */
 .banner h1{
   position: fixed;
   top: 10%;
@@ -40,20 +41,30 @@ body{
   height: 20vh;
 }
 
+.banner a{
+  position: fixed;
+  top: 5%;
+  left: 98%;
+  transform: translate(-50%,-50%);
+  font-size: 30px;
+  color: black;
+}
+/* BANNER CSS START */
 
 @media (max-width: 700px) {
   .banner h1{
     top: 11.5%;
     font-family: MarvelRegular;
-    font-size: 34px
+    font-size: 40px;
+    letter-spacing: 5px;
+    text-align: center;
   }
-}
 
-/* for MOTO G4 and below */
-@media (max-width: 360px) {
-  .banner h1{
-    top: 11.5%;
-    font-family: MarvelRegular;
-    font-size: 28px
+  .banner a{
+    top: 4%;
+    left: 92%;
+    transform: translate(-50%,-50%);
+    font-size: 25px;
+    color: black;
   }
 }
