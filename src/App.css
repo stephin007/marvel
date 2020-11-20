@@ -1,6 +1,6 @@
 @font-face {
-  font-family: SaucerBB;
-  src: url(./font/SaucerBB.ttf);
+  font-family: MarvelRegular;
+  src: url(./font/Marvel-Regular.ttf);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
@@ -22,19 +22,38 @@ body{
 
 .banner h1{
   position: fixed;
-  top: 23%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%,-50%);
-  font-family: SaucerBB;
+  font-family: MarvelRegular;
   font-size: 71px;
+  letter-spacing: 3px;
 }
 
 .banner h1 span{
-  color: rgb(172, 0, 0);
+  color: rgb(175, 0, 0);
 }
 
 
 .banner img{
   width: 100vw;
-  height: 45vh;
+  height: 20vh;
+}
+
+
+@media (max-width: 700px) {
+  .banner h1{
+    top: 11.5%;
+    font-family: MarvelRegular;
+    font-size: 34px
+  }
+}
+
+/* for MOTO G4 and below */
+@media (max-width: 360px) {
+  .banner h1{
+    top: 11.5%;
+    font-family: MarvelRegular;
+    font-size: 28px
+  }
 }

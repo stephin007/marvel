@@ -7,7 +7,7 @@ const Navbar = () => {
         <div className="banner">
             {/* Banner Credits: <a href="http://www.freepik.com">Designed by Harryarts / Freepik</a> */}
             <img src={banner} alt="NavBanner"/>
-            <h1><span>Marvel</span> Heroes</h1>
+            <h1><span>MARVEL</span> HEROES</h1>
         </div>
     )
 }
