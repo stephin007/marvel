@@ -109,6 +109,9 @@ dist
 /.pnp
 .pnp.js
 
+# firebase cache
+.firebase/
+
 # testing
 /coverage
 

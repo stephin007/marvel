@@ -2,9 +2,12 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import {getCharacters} from "../api/Api"
+
 const Search = () => {
     return (
         <div className="container search">
+            {/* {getCharacters().then((data)=> console.log(data))}(just to check the api results donot use it!) */}
             <Autocomplete
                 id="combo-box-demo"
                 options={top100Films}
