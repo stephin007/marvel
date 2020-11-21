@@ -20,6 +20,13 @@ body{
   color: #333;
 }
 
+.container{
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+}
+
 /* BANNER CSS START */
 .banner h1{
   position: fixed;
@@ -49,7 +56,14 @@ body{
   font-size: 30px;
   color: black;
 }
-/* BANNER CSS START */
+/* BANNER CSS END */
+
+.search{
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  
+}
 
 @media (max-width: 700px) {
   .banner h1{
