@@ -19,6 +19,13 @@ body {
     color: #333;
 }
 
+.container {
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+}
+
 
 /* BANNER CSS START */
 
@@ -51,36 +58,19 @@ body {
 }
 
 
-/* BANNER CSS START */
-
-
-/* SEARCH CSS START */
-
-input[class="search"]::placeholder {
-    text-align: center;
-}
+/* BANNER CSS END */
 
 .search {
-    width: 30%;
-    height: 40px;
-    margin-left: 35%;
-    background-color: #e7e7e7;
-    border: 3px solid#5bc0de;
-    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
 }
 
-.search:hover {
-    background-color: #ffffff;
+.card {
+    height: 470px;
+    margin-top: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
-
-.search:focus {
-    outline: none;
-    border: 3px solid #d9534f;
-    box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.5);
-}
-
-
-/* SEARCH CSS START */
 
 @media (max-width: 700px) {
     .banner h1 {

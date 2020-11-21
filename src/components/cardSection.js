@@ -1,12 +1,38 @@
-import React, {Fragment} from 'react'
+import React, {useState} from 'react'
+import Grid from '@material-ui/core/Grid';
 
-import Card from "./Card"
-const cardSection = () => {
+import CardItem from "./CardItem"
+const CardSection = () => {
+    const [profiles] = useState([
+        {
+            id: 1009146,
+            image: "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04/landscape_xlarge.jpg",
+            title: "Abomination (Emil Blonsky)",
+            description: "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk."
+        },
+        {
+            id: 1016823,
+            image: "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_xlarge.jpg",
+            title: "Abomination (Ultimate)",
+            description: ""
+        }
+    ])
+
+    const cards = (
+        profiles.map(profile => {
+            return ( 
+                <Grid item md={3}>
+            <CardItem image={profile.image} title={profile.title} description={profile.description} key={profile.id} />
+                </Grid>
+            )
+        })
+    )
+
     return (
-        <Fragment>
-            <Card />
-        </Fragment>
+        <div className="container">
+            { cards }
+        </div>
     )
 }
 
-export default cardSection
+export default CardSection
