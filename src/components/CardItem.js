@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+        width: "100%",
+      boxShadow: "0 0 11px rgba(33,33,33,.6)"
     },
     media: {
       height: 140,
@@ -21,11 +22,11 @@ const useStyles = makeStyles({
 const CardItem = (props) => {
     const classes = useStyles();
 
-    const margin = props.description === "" ? 70 : 0
+    // const margin = props.description === "" ? 35 : 0
 
     return (
         <Fragment>
-            <Card className={[classes.root, "card"]} style={{paddingLeft: 0 + "px"}}>
+            <Card className={[classes.root, "card"]} >
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
@@ -41,12 +42,19 @@ const CardItem = (props) => {
                     </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions style={{marginTop: margin + "%"}}>
-                    <Grid container justify="flex-end">
-                        <Button variant="contained" color="primary" justifyContent="flex-end">
-                        Learn More
-                        </Button>
-                    </Grid>
+                <CardActions>
+                    {
+                        props.description !== "" 
+                        ?
+                            <Grid container justify="flex-end">
+                                <Button variant="contained" color="primary" justifyContent="flex-end">
+                                    More
+                                </Button>
+                            </Grid>
+                        : 
+                        <p style={{color: "gray", margin: "auto"}}>No Description Found</p>
+                    }
+                    
                 </CardActions>
             </Card>
         </Fragment>

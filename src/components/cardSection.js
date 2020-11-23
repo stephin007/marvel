@@ -11,9 +11,15 @@ const CardSection = () => {
         },
         {
             id: 1016823,
-            image: "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_xlarge.jpg",
+            image: "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04/landscape_xlarge.jpg",
             title: "Abomination (Ultimate)",
             description: ""
+        },
+        {
+            id: 1016826,
+            image: "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04/landscape_xlarge.jpg",
+            title: "Abomination (Ultimate)",
+            description: "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk."
         }
     ])
 
@@ -26,7 +32,7 @@ const CardSection = () => {
     )
 
     return (
-        <div className="container">
+        <div className="container card-section" >
             { cards }
         </div>
     )

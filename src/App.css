@@ -67,9 +67,13 @@ body {
 }
 
 .card {
-    height: 470px;
-    margin-top: 10px;
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    height: 400px;
+    margin: 10px 0 10px 10px
+}
+
+.card-section{
+    display: flex;
+    padding-left: 25px;
 }
 
 @media (max-width: 700px) {
@@ -86,5 +90,14 @@ body {
         transform: translate(-50%, -50%);
         font-size: 25px;
         color: black;
+    }
+    .card-section{
+        display: flex;
+        flex-direction: column;
+        padding: 0 40px 0 20px;
+    }
+    .card {
+        height: 425px;
+        margin: 10px 0 10px 10px
     }
 }
