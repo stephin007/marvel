@@ -29,6 +29,11 @@ body {
 
 /* BANNER CSS START */
 
+.banner{
+    overflow: hidden;
+    z-index: 999;
+}
+
 .banner h1 {
     position: fixed;
     top: 10%;
