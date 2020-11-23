@@ -73,12 +73,14 @@ body {
 
 .card {
     height: 400px;
-    margin: 10px 0 10px 10px
+    margin: 10px 0 10px 10px;
+    flex-basis: 32.33%;
 }
 
 .card-section{
     display: flex;
-    padding-left: 25px;
+    flex-wrap: wrap;
+    padding-left: 25px; 
 }
 
 @media (max-width: 700px) {
