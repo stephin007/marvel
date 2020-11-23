@@ -32,12 +32,13 @@ body {
 .banner{
     overflow: hidden;
     z-index: 999;
+    position: relative;
 }
 
 .banner h1 {
-    position: fixed;
-    top: 10%;
-    left: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50.5%;
     transform: translate(-50%, -50%);
     font-family: MarvelRegular;
     font-size: 71px;
@@ -54,8 +55,8 @@ body {
 }
 
 .banner a {
-    position: fixed;
-    top: 5%;
+    position: absolute;
+    top: 25%;
     left: 98%;
     transform: translate(-50%, -50%);
     font-size: 30px;
@@ -85,17 +86,17 @@ body {
 
 @media (max-width: 700px) {
     .banner h1 {
-        top: 11.5%;
+        top: 50.5%;
         font-family: MarvelRegular;
         font-size: 40px;
         letter-spacing: 5px;
         text-align: center;
     }
     .banner a {
-        top: 4%;
+        top: 15%;
         left: 92%;
         transform: translate(-50%, -50%);
-        font-size: 25px;
+        font-size: 29px;
         color: black;
     }
     .card-section{
