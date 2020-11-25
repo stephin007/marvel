@@ -62,30 +62,42 @@ ScrollTop.propTypes = {
   };
 
 const Home = (props) => {
-    const [characters, setCharacters] = useState([])
+  const [characterSelected, setCharacterSelected] = useState('');
+  const [characters, setCharacters] = useState([])
+  const [charactersRef, setCharactersRef] = useState([])
 
-    useEffect(()=>{
-        getCharacters()
-        .then((output)=>{
-            setCharacters(output.data.results)
-            console.log(output.data.results)
-        })
-    },[])
+  const updateHeroes = (characterSelected) => {
+    const filtered = charactersRef.filter(hero => {
+      console.log(characterSelected)
+      return hero.name.toLowerCase().includes(characterSelected.toLowerCase())
+     })
+     setCharacterSelected(characterSelected);
+     setCharacters(filtered);
+  }
 
-    return (
-        <Fragment>
-            <Toolbar id="back-to-top-anchor" style={{marginTop: "-60px"}}/>
-            <Search characters={characters}/>
-            <CardSection heroes={characters} />
-            <ThemeProvider theme={theme}>
-                <ScrollTop {...props}>
-                    <Fab color="primary" size="small" aria-label="scroll back to top">
-                    <KeyboardArrowUpIcon />
-                    </Fab>
-                </ScrollTop>
-            </ThemeProvider>    
-        </Fragment>
-    )
+  useEffect(()=>{
+      getCharacters()
+      .then((output)=>{
+          setCharacters(output.data.results)
+          setCharactersRef(output.data.results)
+          console.log(output.data.results)
+      })
+  },[])
+
+  return (
+      <Fragment>
+          <Toolbar id="back-to-top-anchor" style={{marginTop: "-60px"}}/>
+          <Search characters={characters} setCharacter={updateHeroes}/>
+          <CardSection heroes={characters} />
+          <ThemeProvider theme={theme}>
+              <ScrollTop {...props}>
+                  <Fab color="primary" size="small" aria-label="scroll back to top">
+                  <KeyboardArrowUpIcon />
+                  </Fab>
+              </ScrollTop>
+          </ThemeProvider>    
+      </Fragment>
+  )
 }
 
 export default Home
