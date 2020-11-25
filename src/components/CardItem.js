@@ -38,23 +38,22 @@ const CardItem = (props) => {
                         {props.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props.description}
+                        {
+                            props.description !== ""
+                            ?
+                                props.description
+                            :
+                            <p style={{color: "gray", margin: "auto", fontSize: 25 + "px"}}>No Description Found</p>
+                        }
                     </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    {
-                        props.description !== "" 
-                        ?
-                            <Grid container justify="flex-end">
-                                <Button variant="contained" color="primary" justifyContent="flex-end">
-                                    More
-                                </Button>
-                            </Grid>
-                        : 
-                        <p style={{color: "gray", margin: "auto"}}>No Description Found</p>
-                    }
-                    
+                    <Grid container justify="flex-end">
+                        <Button variant="contained" color="primary" justifyContent="flex-end">
+                            More
+                        </Button>
+                    </Grid>
                 </CardActions>
             </Card>
         </Fragment>
