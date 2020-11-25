@@ -6,8 +6,7 @@ import { makeStyles, createMuiTheme,ThemeProvider } from '@material-ui/core/styl
 
 
 import Search from "./Search"
-import CardSection from "./cardSection"
-
+import CardSection from "./CardSection"
 import {getCharacters} from "../api/Api"
 
 

@@ -21,9 +21,6 @@ const useStyles = makeStyles({
 
 const CardItem = (props) => {
     const classes = useStyles();
-
-    // const margin = props.description === "" ? 35 : 0
-
     return (
         <Fragment>
             <Card className={[classes.root, "card"]} >
@@ -43,14 +40,14 @@ const CardItem = (props) => {
                             ?
                                 props.description
                             :
-                            <p style={{color: "gray", margin: "auto", fontSize: 25 + "px"}}>No Description Found</p>
+                            <p style={{color: "gray", margin: "50px 80px", textAlign: "center"}}>No Description Provided By Marvel</p>
                         }
                     </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
                     <Grid container justify="flex-end">
-                        <Button variant="contained" color="primary" justifyContent="flex-end">
+                        <Button variant="contained" color="primary" justifyContent="flex-end" >
                             More
                         </Button>
                     </Grid>
