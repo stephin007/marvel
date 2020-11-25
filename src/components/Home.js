@@ -76,7 +76,7 @@ const Home = (props) => {
         <Fragment>
             <Toolbar id="back-to-top-anchor" style={{marginTop: "-60px"}}/>
             <Search characters={characters}/>
-            <CardSection />
+            <CardSection heroes={characters} />
             <ThemeProvider theme={theme}>
                 <ScrollTop {...props}>
                     <Fab color="primary" size="small" aria-label="scroll back to top">
