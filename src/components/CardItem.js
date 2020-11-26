@@ -19,6 +19,12 @@ const useStyles = makeStyles({
     },
 });
 
+const handleImageError = (e) => {
+    e.target.onerror = null
+    // e.target.style.display = 'none'
+    e.target.src = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_xlarge.jpg"
+}
+
 const CardItem = (props) => {
     const classes = useStyles();
     return (
@@ -27,8 +33,10 @@ const CardItem = (props) => {
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
+                    component="img"
                     image={props.image}
                     title={props.title}
+                    onError={handleImageError}
                     />
                     <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
