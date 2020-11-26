@@ -11,8 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-        width: "100%",
-      boxShadow: "0 0 11px rgba(33,33,33,.6)"
+        width: "100%"
     },
     media: {
       height: 140,

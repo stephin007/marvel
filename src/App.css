@@ -15,8 +15,11 @@ body {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    background-color: #e7e7e7;
-    color: #333;
+    background: url(./assets/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body::-webkit-scrollbar{
@@ -90,6 +93,10 @@ body::-webkit-scrollbar{
     height: 400px;
     margin: 10px 0 10px 10px;
     flex-basis: 32.33%;
+}
+
+.card:hover{
+    box-shadow: 15px 15px 22px rgba(33,33,33,.6);
 }
 
 .card-section{
