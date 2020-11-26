@@ -7,9 +7,10 @@ import { makeStyles, createMuiTheme,ThemeProvider } from '@material-ui/core/styl
 
 import Search from "./Search"
 import CardSection from "./CardSection"
+import Pagination from "./Pagination"
 import {getCharacters} from "../api/Api"
 
-
+// Scroll to Top Fucntion(START)
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
@@ -59,13 +60,25 @@ ScrollTop.propTypes = {
     children: PropTypes.element.isRequired,
     window: PropTypes.func,
   };
+// Scroll to Top Function(END)
 
 const Home = (props) => {
   const [characterSelected, setCharacterSelected] = useState('');
   const [characters, setCharacters] = useState([])
   const [charactersRef, setCharactersRef] = useState([])
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [charactersPerPage] = useState(15);
 
+  // Get Current Characters
+  const indexOfLastCharacter = currentPage * charactersPerPage;
+  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
+  const currentCharacters = characters.slice(indexOfFirstCharacter, indexOfLastCharacter);
+
+  // Change Page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  // Search Filter Function(START)
   const updateHeroes = (characterSelected) => {
     const filtered = charactersRef.filter(hero => {
       console.log(characterSelected)
@@ -74,6 +87,7 @@ const Home = (props) => {
      setCharacterSelected(characterSelected);
      setCharacters(filtered);
   }
+  // Search Filter Function(END)
 
   useEffect(()=>{
       getCharacters()
@@ -89,7 +103,8 @@ const Home = (props) => {
       <Fragment>
           <Toolbar id="back-to-top-anchor" style={{marginTop: "-60px"}}/>
           <Search characters={characters} setCharacter={updateHeroes}/>
-          <CardSection heroes={characters} loading={loading}/>
+          <CardSection heroes={currentCharacters} loading={loading}/>
+          <Pagination totalcharacters={characters.length} charactersPerPage={charactersPerPage}  paginate={paginate}/>
           <ThemeProvider theme={theme}>
               <ScrollTop {...props}>
                   <Fab color="primary" size="small" aria-label="scroll back to top">
