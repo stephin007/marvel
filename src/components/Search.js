@@ -10,7 +10,7 @@ const Search = ({characters, setCharacter}) => {
                 options={characters}
                 getOptionLabel={(option) => option.name}
                 style={{ width: "100%" }}
-                renderInput={(params) => <TextField {...params} id="standard-full-width" label="Search Heroes..." variant="outlined" />}
+                renderInput={(params) => <TextField {...params} id="standard-full-width" label="Search" placeholder="Search Heroes..." variant="outlined" />}
                 onChange={(e) => setCharacter(e.target.textContent)}
             />
         </div>
