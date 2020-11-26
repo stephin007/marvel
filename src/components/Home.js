@@ -64,6 +64,7 @@ const Home = (props) => {
   const [characterSelected, setCharacterSelected] = useState('');
   const [characters, setCharacters] = useState([])
   const [charactersRef, setCharactersRef] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const updateHeroes = (characterSelected) => {
     const filtered = charactersRef.filter(hero => {
@@ -79,6 +80,7 @@ const Home = (props) => {
       .then((output)=>{
           setCharacters(output.data.results)
           setCharactersRef(output.data.results)
+          setLoading(false)
           console.log(output.data.results)
       })
   },[])
@@ -87,7 +89,7 @@ const Home = (props) => {
       <Fragment>
           <Toolbar id="back-to-top-anchor" style={{marginTop: "-60px"}}/>
           <Search characters={characters} setCharacter={updateHeroes}/>
-          <CardSection heroes={characters} />
+          <CardSection heroes={characters} loading={loading}/>
           <ThemeProvider theme={theme}>
               <ScrollTop {...props}>
                   <Fab color="primary" size="small" aria-label="scroll back to top">
