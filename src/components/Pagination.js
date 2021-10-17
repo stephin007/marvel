@@ -8,7 +8,7 @@ const Pagination = ({charactersPerPage, totalcharacters, paginate}) => {
     }
 
     return (
-        <nav style={{marginTop:"15px"}}>
+        <nav style={{marginTop:"15px",cursor:"pointer"}}>
             <ul className="pagination justify-content-center">
                 {pageNumbers.map(number => (
                     <li key={number} className="page-item">

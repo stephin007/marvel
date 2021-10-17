@@ -90,7 +90,7 @@ const Home = (props) => {
   // Search Filter Function(END)
 
   useEffect(()=>{
-      getCharacters()
+      getCharacters(0)
       .then((output)=>{
           setCharacters(output.data.results)
           setCharactersRef(output.data.results)
