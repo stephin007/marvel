@@ -49,7 +49,7 @@ export function MapNode({ data }: NodeProps) {
   return (
     <div
       className={[
-        "min-w-[132px] max-w-[160px] rounded-full border px-4 py-2.5 text-center backdrop-blur-md transition-all duration-300",
+        "min-w-[132px] max-w-[160px] cursor-grab rounded-full border px-4 py-2.5 text-center backdrop-blur-md transition-all duration-300 active:cursor-grabbing",
         "bg-[#0c1018]/85",
         styles.ring,
         active ? `${styles.glow} scale-105 border-opacity-100` : "opacity-90",

@@ -47,25 +47,25 @@ export const regions: RegionMeta[] = [
     id: "street",
     label: "Street Level",
     description: "Neighborhood heroes who keep cities safe day to day.",
-    position: { x: 80, y: 40 },
+    position: { x: 40, y: 40 },
   },
   {
     id: "earth",
     label: "Earth's Mightiest",
     description: "The Avengers and the heroes who defend the planet.",
-    position: { x: 520, y: 40 },
+    position: { x: 420, y: 40 },
   },
   {
     id: "cosmic",
     label: "Cosmic",
     description: "Space, infinity stones, and threats bigger than Earth.",
-    position: { x: 980, y: 40 },
+    position: { x: 960, y: 40 },
   },
   {
     id: "mutants",
     label: "Mutants",
     description: "People born with powers — a different corner of Marvel.",
-    position: { x: 80, y: 520 },
+    position: { x: 40, y: 560 },
   },
 ];
 
@@ -87,7 +87,7 @@ export const universeNodes: UniverseNode[] = [
     region: "street",
     canon: "mcu",
     core: true,
-    position: { x: 160, y: 180 },
+    position: { x: 80, y: 200 },
     blurb:
       "A friendly neighborhood hero with spider powers. Relatable, funny, and often the newcomer’s favorite entry point.",
     whyItMatters:
@@ -101,7 +101,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: true,
-    position: { x: 480, y: 160 },
+    position: { x: 420, y: 160 },
     blurb:
       "Genius billionaire in a flying suit of armor. His 2008 film kicked off the modern Marvel Cinematic Universe.",
     whyItMatters:
@@ -129,7 +129,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: true,
-    position: { x: 560, y: 280 },
+    position: { x: 420, y: 440 },
     blurb:
       "A Norse god of thunder who learns humility on Earth. Bridges fantasy mythology with sci-fi Marvel.",
     whyItMatters:
@@ -143,7 +143,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: true,
-    position: { x: 720, y: 280 },
+    position: { x: 640, y: 440 },
     blurb:
       "Scientist Bruce Banner transforms into a green rage monster when stressed.",
     whyItMatters:
@@ -157,7 +157,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: true,
-    position: { x: 480, y: 360 },
+    position: { x: 380, y: 560 },
     blurb:
       "A master spy and fighter with no superpowers — skill, wit, and a complicated past.",
     whyItMatters:
@@ -171,7 +171,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: true,
-    position: { x: 600, y: 220 },
+    position: { x: 530, y: 300 },
     blurb:
       "Earth’s mightiest heroes. The original six: Iron Man, Captain America, Thor, Hulk, Black Widow, and Hawkeye.",
     whyItMatters:
@@ -184,7 +184,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: true,
-    position: { x: 920, y: 200 },
+    position: { x: 960, y: 160 },
     blurb:
       "A surgeon who becomes a sorcerer guarding Earth from mystical threats.",
     whyItMatters:
@@ -198,7 +198,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: true,
-    position: { x: 1100, y: 260 },
+    position: { x: 1340, y: 300 },
     blurb:
       "A ragtag space crew founded by Star-Lord, Gamora, Drax, Rocket, and Groot. Funny, found-family vibes.",
     whyItMatters:
@@ -211,7 +211,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: true,
-    position: { x: 1020, y: 380 },
+    position: { x: 1120, y: 460 },
     blurb:
       "A cosmic warlord obsessed with “balance” — the main villain of the Infinity Saga.",
     whyItMatters:
@@ -225,7 +225,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: true,
-    position: { x: 860, y: 320 },
+    position: { x: 1120, y: 300 },
     blurb:
       "The long MCU arc from Iron Man (2008) through Endgame (2019): Infinity Stones, Thanos, and the Snap.",
     whyItMatters:
@@ -238,7 +238,7 @@ export const universeNodes: UniverseNode[] = [
     region: "mutants",
     canon: "mixed",
     core: true,
-    position: { x: 220, y: 620 },
+    position: { x: 200, y: 720 },
     blurb:
       "Mutants fighting for a world that fears them. Huge in comics and Fox films; a full MCU reboot is still rolling out.",
     whyItMatters:
@@ -253,7 +253,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: false,
-    position: { x: 400, y: 300 },
+    position: { x: 680, y: 560 },
     blurb:
       "Clint Barton — master archer and S.H.I.E.L.D. agent. One of the original six Avengers, with no superpowers.",
     whyItMatters:
@@ -267,7 +267,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 1220, y: 380 },
+    position: { x: 1340, y: 560 },
     blurb:
       "Drax the Destroyer — a literal-minded warrior seeking vengeance, and a founding Guardian of the Galaxy.",
     whyItMatters:
@@ -281,7 +281,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: false,
-    position: { x: 760, y: 180 },
+    position: { x: 760, y: 300 },
     blurb:
       "King of Wakanda — a hidden, highly advanced African nation — and its protector.",
     whyItMatters:
@@ -295,7 +295,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: false,
-    position: { x: 700, y: 400 },
+    position: { x: 460, y: 680 },
     blurb:
       "Wanda Maximoff wields chaos magic powerful enough to rewrite reality.",
     whyItMatters:
@@ -309,7 +309,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: false,
-    position: { x: 800, y: 400 },
+    position: { x: 640, y: 680 },
     blurb:
       "An android created with an Infinity Stone — curious about humanity and love.",
     whyItMatters:
@@ -323,7 +323,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 900, y: 140 },
+    position: { x: 960, y: 40 },
     blurb:
       "Thor’s adoptive brother — a trickster who begins as a villain and grows into an anti-hero.",
     whyItMatters:
@@ -337,7 +337,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 1180, y: 200 },
+    position: { x: 1280, y: 160 },
     blurb:
       "Peter Quill — half-human leader of the Guardians with a mixtape and a mouth.",
     whyItMatters: "The face of Marvel’s cosmic comedy-adventure tone.",
@@ -350,7 +350,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 1220, y: 300 },
+    position: { x: 1280, y: 440 },
     blurb:
       "Adopted daughter of Thanos; deadly assassin who chooses her own family.",
     whyItMatters:
@@ -364,7 +364,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 1140, y: 360 },
+    position: { x: 1400, y: 440 },
     blurb:
       "A tree-like being who mostly says “I am Groot” — and somehow says everything.",
     whyItMatters: "Proof Marvel can be silly and still emotionally land.",
@@ -377,7 +377,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 1060, y: 180 },
+    position: { x: 1400, y: 160 },
     blurb:
       "A genetically engineered raccoon genius with anger issues and loyalty issues.",
     whyItMatters:
@@ -391,7 +391,7 @@ export const universeNodes: UniverseNode[] = [
     region: "mutants",
     canon: "mixed",
     core: false,
-    position: { x: 120, y: 680 },
+    position: { x: 80, y: 800 },
     blurb:
       "Adamantium claws, healing factor, short temper — the breakout X-Men icon (comics/Fox; MCU crossovers evolving).",
     whyItMatters:
@@ -405,7 +405,7 @@ export const universeNodes: UniverseNode[] = [
     region: "mutants",
     canon: "mixed",
     core: false,
-    position: { x: 280, y: 560 },
+    position: { x: 80, y: 640 },
     blurb:
       "Telepathic founder of the X-Men school; believes humans and mutants can coexist.",
     whyItMatters:
@@ -419,7 +419,7 @@ export const universeNodes: UniverseNode[] = [
     region: "mutants",
     canon: "mixed",
     core: false,
-    position: { x: 320, y: 680 },
+    position: { x: 320, y: 800 },
     blurb: "Weather-controlling mutant and frequent X-Men leader.",
     whyItMatters:
       "Shows the breadth of mutant powers and leadership beyond Wolverine.",
@@ -432,7 +432,7 @@ export const universeNodes: UniverseNode[] = [
     region: "street",
     canon: "mcu",
     core: false,
-    position: { x: 280, y: 280 },
+    position: { x: 80, y: 380 },
     blurb:
       "Scott Lang shrinks (and grows) using Pym Particles — heist energy meets science.",
     whyItMatters: "A lighter, smaller-scale path into the Avengers world.",
@@ -445,7 +445,7 @@ export const universeNodes: UniverseNode[] = [
     region: "cosmic",
     canon: "mcu",
     core: false,
-    position: { x: 940, y: 440 },
+    position: { x: 1120, y: 620 },
     blurb: "The 2018 film where nearly every hero faces Thanos — and many lose.",
     whyItMatters:
       "The payoff moment that makes years of separate movies feel like one universe.",
@@ -457,7 +457,7 @@ export const universeNodes: UniverseNode[] = [
     region: "earth",
     canon: "mcu",
     core: false,
-    position: { x: 560, y: 440 },
+    position: { x: 530, y: 800 },
     blurb:
       "Heroes split over government oversight — Cap vs Iron Man, friends turned rivals.",
     whyItMatters:

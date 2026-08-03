@@ -10,6 +10,7 @@ import {
   useReactFlow,
   type Edge,
   type Node,
+  type NodeChange,
   type NodeTypes,
 } from "@xyflow/react";
 import { motion } from "framer-motion";
@@ -29,12 +30,10 @@ const nodeTypes: NodeTypes = {
   marvel: MapNode,
 };
 
-function buildFlowNodes(
-  nodes: UniverseNode[],
-  selectedId: string | null,
-  focusId: string | null,
-): Node[] {
-  const regionNodes: Node[] = regions.map((region) => ({
+type PositionMap = Record<string, { x: number; y: number }>;
+
+function buildRegionNodes(): Node[] {
+  return regions.map((region) => ({
     id: `region-${region.id}`,
     type: "default",
     position: region.position,
@@ -48,7 +47,7 @@ function buildFlowNodes(
       border: "none",
       boxShadow: "none",
       padding: 0,
-      width: 220,
+      width: 240,
       color: "#8a857a",
       fontSize: 11,
       letterSpacing: "0.22em",
@@ -57,11 +56,20 @@ function buildFlowNodes(
       pointerEvents: "none",
     },
   }));
+}
 
-  const entityNodes: Node[] = nodes.map((n) => ({
+function buildEntityNode(
+  n: UniverseNode,
+  selectedId: string | null,
+  focusId: string | null,
+  position: { x: number; y: number },
+): Node {
+  return {
     id: n.id,
     type: "marvel",
-    position: n.position,
+    position,
+    draggable: true,
+    connectable: false,
     data: {
       label: n.label,
       type: n.type,
@@ -69,9 +77,7 @@ function buildFlowNodes(
       focused: focusId === n.id,
       selected: selectedId === n.id,
     } satisfies MapNodeData,
-  }));
-
-  return [...regionNodes, ...entityNodes];
+  };
 }
 
 function buildFlowEdges(
@@ -125,6 +131,9 @@ function MapInner() {
   const showSecondary =
     userReveal || Boolean(selectedNode && !selectedNode.core);
 
+  /** Drag overrides for this session (cleared by Reset layout). */
+  const [positionOverrides, setPositionOverrides] = useState<PositionMap>({});
+
   const visibleUniverseNodes = useMemo(
     () => getVisibleNodes(showSecondary),
     [showSecondary],
@@ -134,14 +143,37 @@ function MapInner() {
     [visibleUniverseNodes],
   );
 
-  const nodes = useMemo(
-    () => buildFlowNodes(visibleUniverseNodes, selectedId, focusParam),
-    [visibleUniverseNodes, selectedId, focusParam],
-  );
+  const nodes = useMemo(() => {
+    const entityNodes = visibleUniverseNodes.map((n) =>
+      buildEntityNode(
+        n,
+        selectedId,
+        focusParam,
+        positionOverrides[n.id] ?? n.position,
+      ),
+    );
+    return [...buildRegionNodes(), ...entityNodes];
+  }, [visibleUniverseNodes, selectedId, focusParam, positionOverrides]);
+
   const edges = useMemo(
     () => buildFlowEdges(showSecondary, visibleIds, selectedId),
     [showSecondary, visibleIds, selectedId],
   );
+
+  const onNodesChange = useCallback((changes: NodeChange[]) => {
+    const positionChanges = changes.filter((c) => c.type === "position");
+    if (positionChanges.length === 0) return;
+
+    setPositionOverrides((prev) => {
+      const next = { ...prev };
+      for (const change of positionChanges) {
+        if (change.type === "position" && change.position) {
+          next[change.id] = change.position;
+        }
+      }
+      return next;
+    });
+  }, []);
 
   const focusCamera = useCallback(
     (id: string) => {
@@ -186,6 +218,11 @@ function MapInner() {
     updateFocusUrl(null);
   }, [updateFocusUrl]);
 
+  const resetLayout = useCallback(() => {
+    setPositionOverrides({});
+    window.setTimeout(() => fitView({ padding: 0.18, duration: 500 }), 50);
+  }, [fitView]);
+
   const toggleReveal = () => {
     if (userReveal || showSecondary) {
       setUserReveal(false);
@@ -195,7 +232,7 @@ function MapInner() {
     } else {
       setUserReveal(true);
     }
-    window.setTimeout(() => fitView({ padding: 0.2, duration: 500 }), 50);
+    window.setTimeout(() => fitView({ padding: 0.18, duration: 500 }), 50);
   };
 
   return (
@@ -230,7 +267,14 @@ function MapInner() {
           </button>
           <button
             type="button"
-            onClick={() => fitView({ padding: 0.2, duration: 500 })}
+            onClick={resetLayout}
+            className="rounded-full border border-white/15 bg-[#0c1018]/80 px-4 py-2 text-xs tracking-wide text-[#e8e2d6] backdrop-blur transition hover:border-[#c9a227]/50"
+          >
+            Reset layout
+          </button>
+          <button
+            type="button"
+            onClick={() => fitView({ padding: 0.18, duration: 500 })}
             className="rounded-full border border-white/10 bg-transparent px-3 py-2 text-xs text-[#8a857a] transition hover:text-[#e8e2d6]"
           >
             Fit view
@@ -248,14 +292,20 @@ function MapInner() {
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
+          onNodesChange={onNodesChange}
+          nodesDraggable
+          nodesConnectable={false}
+          elementsSelectable
+          selectNodesOnDrag={false}
+          panOnDrag
           onNodeClick={(_, n) => {
             if (n.id.startsWith("region-")) return;
             onSelect(n.id);
           }}
           onPaneClick={onClose}
           fitView
-          fitViewOptions={{ padding: 0.2 }}
-          minZoom={0.35}
+          fitViewOptions={{ padding: 0.18 }}
+          minZoom={0.3}
           maxZoom={1.8}
           proOptions={{ hideAttribution: true }}
           defaultEdgeOptions={{ type: "default" }}
@@ -281,9 +331,9 @@ function MapInner() {
         </ReactFlow>
       </motion.div>
 
-      <p className="pointer-events-none absolute bottom-4 left-4 z-10 hidden max-w-xs text-[11px] leading-relaxed text-[#6b6560] md:block">
-        Drag to pan · scroll to zoom · tap a constellation point to learn how it
-        connects.
+      <p className="pointer-events-none absolute bottom-4 left-4 z-10 hidden max-w-sm text-[11px] leading-relaxed text-[#6b6560] md:block">
+        Drag nodes to rearrange · drag empty space to pan · scroll to zoom ·
+        Reset layout restores the default clusters.
       </p>
 
       <DetailPanel
