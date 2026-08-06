@@ -32,8 +32,10 @@ export type RegionMeta = {
   id: RegionId;
   label: string;
   description: string;
-  /** Approximate label anchor on the canvas. */
-  position: { x: number; y: number };
+  /** Position of the galaxy hub on the overview map. */
+  hubPosition: { x: number; y: number };
+  /** Region label position when exploring inside the galaxy. */
+  labelPosition: { x: number; y: number };
 };
 
 export const canonLabels: Record<Canon, string> = {
@@ -42,32 +44,40 @@ export const canonLabels: Record<Canon, string> = {
   mixed: "MCU + comics",
 };
 
-export const regions: RegionMeta[] = [
+/** Galaxies = navigable corners of the universe (progressive disclosure). */
+export const galaxies: RegionMeta[] = [
   {
     id: "street",
     label: "Street Level",
     description: "Neighborhood heroes who keep cities safe day to day.",
-    position: { x: 40, y: 40 },
+    hubPosition: { x: 120, y: 220 },
+    labelPosition: { x: 40, y: 40 },
   },
   {
     id: "earth",
     label: "Earth's Mightiest",
     description: "The Avengers and the heroes who defend the planet.",
-    position: { x: 420, y: 40 },
+    hubPosition: { x: 520, y: 140 },
+    labelPosition: { x: 420, y: 40 },
   },
   {
     id: "cosmic",
     label: "Cosmic",
     description: "Space, infinity stones, and threats bigger than Earth.",
-    position: { x: 960, y: 40 },
+    hubPosition: { x: 920, y: 220 },
+    labelPosition: { x: 960, y: 40 },
   },
   {
     id: "mutants",
     label: "Mutants",
     description: "People born with powers — a different corner of Marvel.",
-    position: { x: 40, y: 560 },
+    hubPosition: { x: 520, y: 420 },
+    labelPosition: { x: 40, y: 560 },
   },
 ];
+
+/** @deprecated Use galaxies — kept as alias for older imports. */
+export const regions = galaxies;
 
 /**
  * Curated teaching graph for MCU-first newcomers.

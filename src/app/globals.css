@@ -45,8 +45,9 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.universe-flow .react-flow__edge-text {
-  font-size: 9px;
+.universe-flow .react-flow__edgelabel-renderer {
+  z-index: 12;
+  pointer-events: none;
 }
 
 .region-label-node {

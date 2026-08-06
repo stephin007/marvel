@@ -2,76 +2,22 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { canonLabels, type UniverseNode } from "@/data/universe";
-import {
-  getNodeById,
-  getRelatedNodeIds,
-  type MarvelCharacterEnrichment,
-} from "@/lib/universe";
+import { canonLabels } from "@/data/universe";
+import type { GraphNode } from "@/lib/build-graph";
 
 type DetailPanelProps = {
-  node: UniverseNode | null;
+  node: GraphNode | null;
+  related: GraphNode[];
   onClose: () => void;
   onSelectRelated: (id: string) => void;
 };
 
-type EnrichmentState = {
-  characterId: number;
-  data: MarvelCharacterEnrichment | null;
-  status: "loading" | "ready" | "error";
-};
-
-export function DetailPanel({ node, onClose, onSelectRelated }: DetailPanelProps) {
-  const [enrichmentState, setEnrichmentState] = useState<EnrichmentState | null>(
-    null,
-  );
-  const characterId = node?.marvelCharacterId;
-
-  useEffect(() => {
-    if (!characterId) return;
-
-    let cancelled = false;
-
-    fetch(`/api/marvel/character/${characterId}`)
-      .then((res) => res.json())
-      .then((payload: { enrichment?: MarvelCharacterEnrichment | null }) => {
-        if (cancelled) return;
-        setEnrichmentState({
-          characterId,
-          data: payload.enrichment ?? null,
-          status: "ready",
-        });
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setEnrichmentState({
-          characterId,
-          data: null,
-          status: "error",
-        });
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [characterId]);
-
-  const enrichment =
-    characterId && enrichmentState?.characterId === characterId
-      ? enrichmentState.data
-      : null;
-  const loadingArt =
-    Boolean(characterId) &&
-    enrichmentState?.characterId !== characterId;
-
-  const related = node
-    ? getRelatedNodeIds(node.id)
-        .map((id) => getNodeById(id))
-        .filter((n): n is UniverseNode => Boolean(n))
-        .slice(0, 4)
-    : [];
-
+export function DetailPanel({
+  node,
+  related,
+  onClose,
+  onSelectRelated,
+}: DetailPanelProps) {
   return (
     <AnimatePresence>
       {node ? (
@@ -109,23 +55,18 @@ export function DetailPanel({ node, onClose, onSelectRelated }: DetailPanelProps
             </button>
           </div>
 
-          {(loadingArt || enrichment?.thumbnailUrl) && (
+          {node.imageUrl ? (
             <div className="relative mb-4 aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#121826]">
-              {enrichment?.thumbnailUrl ? (
-                <Image
-                  src={enrichment.thumbnailUrl}
-                  alt={enrichment.name}
-                  fill
-                  className="object-cover"
-                  sizes="360px"
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center text-xs text-[#6b7280]">
-                  Loading art…
-                </div>
-              )}
+              <Image
+                src={node.imageUrl}
+                alt={node.label}
+                fill
+                className="object-cover"
+                sizes="360px"
+                unoptimized
+              />
             </div>
-          )}
+          ) : null}
 
           <p className="text-sm leading-relaxed text-[#d4cfc3]">{node.blurb}</p>
 
@@ -138,17 +79,22 @@ export function DetailPanel({ node, onClose, onSelectRelated }: DetailPanelProps
             </p>
           </div>
 
-          {enrichment?.description ? (
-            <p className="mt-4 text-xs leading-relaxed text-[#8a857a]">
-              {enrichment.description.slice(0, 280)}
-              {enrichment.description.length > 280 ? "…" : ""}
-            </p>
+          {node.teams.length > 0 ? (
+            <div className="mt-4">
+              <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#8a857a]">
+                Teams (Comic Vine)
+              </p>
+              <p className="text-xs leading-relaxed text-[#b8b3a8]">
+                {node.teams.slice(0, 8).join(" · ")}
+                {node.teams.length > 8 ? "…" : ""}
+              </p>
+            </div>
           ) : null}
 
           {related.length > 0 ? (
             <div className="mt-5">
               <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-[#8a857a]">
-                Connected to
+                Connected (via Comic Vine)
               </p>
               <div className="flex flex-wrap gap-2">
                 {related.map((r) => (
@@ -164,6 +110,10 @@ export function DetailPanel({ node, onClose, onSelectRelated }: DetailPanelProps
               </div>
             </div>
           ) : null}
+
+          <p className="mt-5 text-[10px] leading-relaxed text-[#5c574f]">
+            Character data © Comic Vine / Fandom. Non-commercial educational use.
+          </p>
         </motion.aside>
       ) : null}
     </AnimatePresence>

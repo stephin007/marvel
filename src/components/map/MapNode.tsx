@@ -9,6 +9,8 @@ export type MapNodeData = {
   region: string;
   focused: boolean;
   selected: boolean;
+  /** Bridge endpoint outside the active galaxy */
+  dimmed?: boolean;
 };
 
 const typeStyles: Record<
@@ -45,6 +47,7 @@ export function MapNode({ data }: NodeProps) {
   const node = data as MapNodeData;
   const styles = typeStyles[node.type];
   const active = node.selected || node.focused;
+  const dimmed = Boolean(node.dimmed);
 
   return (
     <div
@@ -54,6 +57,7 @@ export function MapNode({ data }: NodeProps) {
         styles.ring,
         active ? `${styles.glow} scale-105 border-opacity-100` : "opacity-90",
         node.focused ? "animate-node-pulse" : "",
+        dimmed ? "opacity-45 grayscale-[40%]" : "",
       ].join(" ")}
     >
       <Handle
