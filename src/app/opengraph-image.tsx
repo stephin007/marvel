@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Marvel Universe Map — interactive guide for newcomers";
+export const alt = "Marvel Universe Map — interactive guide to how Marvel connects";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -101,8 +101,8 @@ export default function OpenGraphImage() {
               lineHeight: 1.4,
             }}
           >
-            An interactive constellation that helps newcomers understand how
-            heroes, teams, and galaxies connect.
+            An interactive constellation that shows how heroes, teams, and
+            galaxies connect across the Marvel Universe.
           </div>
         </div>
       </div>

@@ -85,7 +85,7 @@ export function LandingHero() {
             transition={{ duration: 0.65, delay: 0.15 }}
             className="mt-6 max-w-xl font-[family-name:var(--font-display)] text-2xl leading-snug tracking-wide text-[#f5f1e8] sm:text-3xl md:text-4xl"
           >
-            Finally understand the Marvel Universe
+            See how the Marvel Universe connects
           </motion.h1>
 
           <motion.p
@@ -94,15 +94,15 @@ export function LandingHero() {
             transition={{ duration: 0.65, delay: 0.28 }}
             className="mt-4 max-w-md text-base leading-relaxed text-[#a8a296] md:text-lg"
           >
-            An interactive constellation of heroes, teams, and events — built for
-            people who are just getting started.
+            An interactive constellation of heroes, teams, and events — a clear
+            way to see how the Marvel Universe connects.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.4 }}
-            className="mt-10"
+            className="mt-10 flex flex-wrap items-center gap-4"
           >
             <Link
               href="/map"
@@ -110,6 +110,12 @@ export function LandingHero() {
             >
               Explore the map
               <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/guide"
+              className="text-sm tracking-wide text-[#8a857a] underline-offset-4 transition hover:text-[#e8e2d6] hover:underline"
+            >
+              How to navigate
             </Link>
           </motion.div>
         </div>

@@ -18,12 +18,12 @@ const siteUrl =
 
 const title = "Marvel Universe Map";
 const description =
-  "An interactive galaxy map of Marvel heroes, teams, and connections — built so newcomers can finally see how the universe fits together. Powered by Comic Vine.";
+  "An interactive galaxy map of Marvel heroes, teams, and connections — explore how the universe fits together. Powered by Comic Vine.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${title} — Newcomer Guide`,
+    default: `${title} — Explore how Marvel connects`,
     template: `%s · ${title}`,
   },
   description,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Avengers",
     "X-Men",
     "interactive map",
-    "newcomer guide",
+    "Marvel characters",
   ],
   category: "entertainment",
   referrer: "origin-when-cross-origin",
@@ -60,12 +60,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: title,
-    title: `${title} — Finally understand the Marvel Universe`,
+    title: `${title} — See how the Marvel Universe connects`,
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${title} — Newcomer Guide`,
+    title: `${title} — Explore how Marvel connects`,
     description,
   },
   appleWebApp: {

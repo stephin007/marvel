@@ -80,7 +80,7 @@ export const characterSeeds: CharacterSeed[] = [
     galaxy: "street",
     core: true,
     position: { x: 80, y: 200 },
-    whyItMatters: "The friendliest on-ramp for newcomers.",
+    whyItMatters: "The friendliest on-ramp into street-level Marvel.",
   },
   {
     id: "ant-man",
@@ -162,7 +162,7 @@ export const characterSeeds: CharacterSeed[] = [
     galaxy: "mutants",
     core: true,
     position: { x: 420, y: 160 },
-    whyItMatters: "The mutant most newcomers already recognize.",
+    whyItMatters: "The mutant face most people already recognize.",
   },
   {
     id: "professor-x",

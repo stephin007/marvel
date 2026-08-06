@@ -13,7 +13,14 @@ type SiteFooterProps = {
 export function SiteFooter({ variant = "page" }: SiteFooterProps) {
   if (variant === "map") {
     return (
-      <p className="pointer-events-auto absolute bottom-4 right-4 z-10 text-[11px] text-[#6b6560] md:bottom-5 md:right-5">
+      <p className="pointer-events-auto absolute bottom-4 right-4 z-10 max-w-[11rem] text-right text-[11px] leading-relaxed text-[#6b6560] md:bottom-5 md:right-5">
+        <Link
+          href="/guide"
+          className="text-[#9a9488] underline-offset-2 transition hover:text-[#e8e2d6] hover:underline"
+        >
+          How to navigate
+        </Link>
+        <br />
         Built by{" "}
         <a
           href={BUILDER.url}
@@ -42,6 +49,13 @@ export function SiteFooter({ variant = "page" }: SiteFooterProps) {
           </Link>
         </p>
         <p className="text-xs text-[#5c574f]">
+          <Link
+            href="/guide"
+            className="underline-offset-2 hover:text-[#9a9488] hover:underline"
+          >
+            How to navigate
+          </Link>
+          {" · "}
           Fan project · Character data via{" "}
           <a
             href="https://comicvine.gamespot.com/"

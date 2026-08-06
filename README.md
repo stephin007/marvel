@@ -1,6 +1,6 @@
 # Marvel Universe Map
 
-An interactive **galaxy map** for Marvel newcomers, powered by **[Comic Vine](https://comicvine.gamespot.com/api/)**.
+An interactive **galaxy map** of Marvel heroes and connections, powered by **[Comic Vine](https://comicvine.gamespot.com/api/)**.
 
 Galaxies and relationship links appear **only when Comic Vine returns real character data and connections**. Seeds in the repo only say *who to look up* and *where to place them* — not fake edges.
 

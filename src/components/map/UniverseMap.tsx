@@ -613,6 +613,12 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
               ? `${activeGalaxyMeta.label} galaxy`
               : "Universe · Comic Vine galaxies"}
           </p>
+          <Link
+            href="/guide"
+            className="mt-2 inline-block text-[11px] text-[#6b6560] underline-offset-2 transition hover:text-[#e8e2d6] hover:underline"
+          >
+            How to navigate
+          </Link>
         </div>
 
         <div className="pointer-events-auto flex w-full max-w-xl flex-col gap-2 md:items-end">
