@@ -45,6 +45,7 @@ import { DetailPanel } from "./DetailPanel";
 import { GalaxyHubNode, type GalaxyHubData } from "./GalaxyHubNode";
 import { MapEdge, type MapEdgeData } from "./MapEdge";
 import { MapNode, type MapNodeData } from "./MapNode";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const nodeTypes: NodeTypes = {
   marvel: MapNode,
@@ -772,6 +773,8 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
           "Galaxies appear only when Comic Vine returns characters. Search any hero to add them for this visit."
         )}
       </p>
+
+      <SiteFooter variant="map" />
 
       <DetailPanel
         node={selectedNode}
