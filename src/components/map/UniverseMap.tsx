@@ -18,6 +18,7 @@ import {
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useOpenPanel } from "@openpanel/nextjs";
 import {
   useCallback,
   useEffect,
@@ -27,6 +28,7 @@ import {
 } from "react";
 import type { RegionId } from "@/data/universe";
 import type { GraphNode, UniverseGraph } from "@/lib/build-graph";
+import { AnalyticsEvent } from "@/lib/analytics";
 import {
   filterGraphNodes,
   getBridgeEdgesFromGalaxy,
@@ -171,6 +173,7 @@ function MapStatus({
 }
 
 function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
+  const op = useOpenPanel();
   const router = useRouter();
   const searchParams = useSearchParams();
   const focusParam = searchParams.get("focus");
@@ -468,20 +471,31 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
 
   const enterGalaxy = useCallback(
     (id: RegionId) => {
+      op.track(AnalyticsEvent.MapEnterGalaxy, { galaxy: id });
       syncUrl({ galaxy: id, focus: null, bridges: false });
     },
-    [syncUrl],
+    [op, syncUrl],
   );
 
   const leaveGalaxy = useCallback(() => {
+    op.track(AnalyticsEvent.MapLeaveGalaxy, {
+      galaxy: activeGalaxy,
+    });
     setUserReveal(false);
     syncUrl({ galaxy: null, focus: null, bridges: false });
-  }, [syncUrl]);
+  }, [op, activeGalaxy, syncUrl]);
 
   const onSelect = useCallback(
     (id: string) => {
       const node = nodesById.get(id);
       if (!node) return;
+      op.track(AnalyticsEvent.MapSelectCharacter, {
+        character_id: node.id,
+        character_name: node.label,
+        character_type: node.type,
+        galaxy: node.region,
+        source: activeGalaxy && node.region !== activeGalaxy ? "bridge" : "map",
+      });
       if (activeGalaxy && node.region !== activeGalaxy) {
         syncUrl({ galaxy: node.region, focus: id, bridges: false });
         return;
@@ -493,7 +507,7 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
       });
       window.setTimeout(() => focusCamera(id), 50);
     },
-    [activeGalaxy, showBridges, syncUrl, focusCamera, nodesById],
+    [op, activeGalaxy, showBridges, syncUrl, focusCamera, nodesById],
   );
 
   const onClose = useCallback(() => {
@@ -501,6 +515,7 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
   }, [syncUrl, activeGalaxy, showBridges]);
 
   const resetLayout = useCallback(() => {
+    op.track(AnalyticsEvent.MapResetLayout, { galaxy: activeGalaxy });
     setPositionOverrides({});
     setFlowNodes((current) =>
       current.map((n) => {
@@ -510,9 +525,23 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
       }),
     );
     window.setTimeout(() => fitView({ padding: 0.22, duration: 500 }), 50);
-  }, [fitView, nodesById]);
+  }, [op, activeGalaxy, fitView, nodesById]);
+
+  const bridgeCount = activeGalaxy
+    ? getBridgeEdgesFromGalaxy(
+        graph.edges,
+        activeGalaxy,
+        nodesById,
+        visibleIds,
+      ).length
+    : 0;
 
   const toggleReveal = () => {
+    const nextReveal = !(userReveal || showSecondary);
+    op.track(AnalyticsEvent.MapToggleReveal, {
+      galaxy: activeGalaxy,
+      revealed: nextReveal,
+    });
     if (userReveal || showSecondary) {
       setUserReveal(false);
       if (selectedNode && !selectedNode.core) {
@@ -524,10 +553,16 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
   };
 
   const toggleBridges = () => {
+    const next = !showBridges;
+    op.track(AnalyticsEvent.MapToggleBridges, {
+      galaxy: activeGalaxy,
+      bridges: next,
+      bridge_count: bridgeCount,
+    });
     syncUrl({
       galaxy: activeGalaxy,
       focus: selectedId,
-      bridges: !showBridges,
+      bridges: next,
     });
   };
 
@@ -551,18 +586,36 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
         };
 
         if (!res.ok) {
+          op.track(AnalyticsEvent.MapSearch, {
+            query: q,
+            success: false,
+            error: data.error ?? "not_found",
+            galaxy: activeGalaxy,
+          });
           setSearchError(data.error ?? "Character not found.");
           return;
         }
 
         const galaxy = pickGuestGalaxy(graph, data, activeGalaxy);
         const merged = mergeGuestIntoGraph(graph, data, galaxy);
+        op.track(AnalyticsEvent.MapSearch, {
+          query: q,
+          success: true,
+          character_id: merged.nodeId,
+          galaxy,
+        });
         setGraph(merged.graph);
         setUserReveal(true);
         syncUrl({ galaxy, focus: merged.nodeId, bridges: false });
         setSearchQuery("");
         window.setTimeout(() => focusCamera(merged.nodeId), 280);
       } catch (err) {
+        op.track(AnalyticsEvent.MapSearch, {
+          query: q,
+          success: false,
+          error: err instanceof Error ? err.message : "search_failed",
+          galaxy: activeGalaxy,
+        });
         setSearchError(
           err instanceof Error ? err.message : "Search failed. Try again.",
         );
@@ -570,7 +623,7 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
         setSearchBusy(false);
       }
     },
-    [graph, activeGalaxy, syncUrl, focusCamera],
+    [op, graph, activeGalaxy, syncUrl, focusCamera],
   );
 
   const onSearchSubmit = (event: FormEvent) => {
@@ -581,14 +634,6 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
   const activeGalaxyMeta = activeGalaxy
     ? graph.galaxies.find((g) => g.id === activeGalaxy)
     : undefined;
-  const bridgeCount = activeGalaxy
-    ? getBridgeEdgesFromGalaxy(
-        graph.edges,
-        activeGalaxy,
-        nodesById,
-        visibleIds,
-      ).length
-    : 0;
 
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-[#06080f]">
@@ -793,6 +838,7 @@ function MapInner({ baseGraph }: { baseGraph: UniverseGraph }) {
 }
 
 function MapLoader() {
+  const op = useOpenPanel();
   const [graph, setGraph] = useState<UniverseGraph | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
@@ -803,15 +849,37 @@ function MapLoader() {
         const data = (await res.json()) as UniverseGraph;
         if (cancelled) return;
         setGraph(data);
+
+        if (!data.configured) {
+          op.track(AnalyticsEvent.MapLoadFailed, { reason: "missing_api_key" });
+          return;
+        }
+        if (data.galaxies.length === 0) {
+          op.track(AnalyticsEvent.MapLoadFailed, {
+            reason: "empty_galaxies",
+            error: data.error ?? undefined,
+          });
+          return;
+        }
+        op.track(AnalyticsEvent.MapLoaded, {
+          galaxy_count: data.galaxies.length,
+          node_count: data.nodes.length,
+          edge_count: data.edges.length,
+        });
       })
       .catch((err: unknown) => {
         if (cancelled) return;
-        setLoadError(err instanceof Error ? err.message : "Failed to load");
+        const message = err instanceof Error ? err.message : "Failed to load";
+        setLoadError(message);
+        op.track(AnalyticsEvent.MapLoadFailed, {
+          reason: "fetch_error",
+          error: message,
+        });
       });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [op]);
 
   if (loadError) {
     return (

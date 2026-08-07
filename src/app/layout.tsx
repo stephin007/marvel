@@ -1,5 +1,6 @@
 import { Bebas_Neue, Source_Sans_3 } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import { OpenPanelAnalytics } from "@/components/analytics/OpenPanelAnalytics";
 import "./globals.css";
 
 const display = Bebas_Neue({
@@ -98,6 +99,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} h-full`}>
       <body className="min-h-full bg-[#06080f] font-sans text-[#f5f1e8] antialiased">
+        <OpenPanelAnalytics />
         {children}
       </body>
     </html>

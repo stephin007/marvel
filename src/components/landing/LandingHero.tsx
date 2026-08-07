@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AnalyticsEvent } from "@/lib/analytics";
 
 export function LandingHero() {
   return (
@@ -104,19 +105,23 @@ export function LandingHero() {
             transition={{ duration: 0.65, delay: 0.4 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <Link
+            <TrackedLink
               href="/map"
+              event={AnalyticsEvent.CtaExploreMap}
+              eventProperties={{ source: "landing_hero" }}
               className="inline-flex items-center gap-2 rounded-full bg-[#e62429] px-7 py-3.5 text-sm font-semibold tracking-wide text-white transition hover:bg-[#ff2d33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e62429]"
             >
               Explore the map
               <span aria-hidden>→</span>
-            </Link>
-            <Link
+            </TrackedLink>
+            <TrackedLink
               href="/guide"
+              event={AnalyticsEvent.CtaHowToNavigate}
+              eventProperties={{ source: "landing_hero" }}
               className="text-sm tracking-wide text-[#8a857a] underline-offset-4 transition hover:text-[#e8e2d6] hover:underline"
             >
               How to navigate
-            </Link>
+            </TrackedLink>
           </motion.div>
         </div>
       </section>

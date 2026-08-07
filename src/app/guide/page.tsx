@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AnalyticsEvent } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   title: "How to Navigate",
@@ -46,12 +48,14 @@ export default function GuidePage() {
         >
           MARVEL
         </Link>
-        <Link
+        <TrackedLink
           href="/map"
+          event={AnalyticsEvent.CtaExploreMap}
+          eventProperties={{ source: "guide_header" }}
           className="rounded-full bg-[#e62429] px-4 py-2 text-xs font-semibold tracking-wide text-white transition hover:bg-[#ff2d33]"
         >
           Open the map
-        </Link>
+        </TrackedLink>
       </header>
 
       <main className="relative z-10 mx-auto w-full max-w-3xl flex-1 px-6 py-14 md:py-20">
@@ -88,13 +92,15 @@ export default function GuidePage() {
         </ol>
 
         <div className="mt-16 flex flex-wrap items-center gap-4">
-          <Link
+          <TrackedLink
             href="/map"
+            event={AnalyticsEvent.CtaExploreMap}
+            eventProperties={{ source: "guide_footer" }}
             className="inline-flex items-center gap-2 rounded-full bg-[#e62429] px-6 py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-[#ff2d33]"
           >
             Explore the map
             <span aria-hidden>→</span>
-          </Link>
+          </TrackedLink>
           <Link
             href="/"
             className="text-sm text-[#8a857a] transition hover:text-[#e8e2d6]"
