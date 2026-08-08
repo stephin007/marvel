@@ -9,8 +9,10 @@ export async function GET() {
     const graph = await buildUniverseGraph({ includeSecondary: true });
     return NextResponse.json(graph, {
       headers: {
-        // Short browser cache; Comic Vine responses are cached in fetch revalidate
-        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        // The seed graph changes only on deploy. Keep it at the edge for a day
+        // so abusive traffic cannot repeatedly trigger Comic Vine graph builds.
+        "Cache-Control":
+          "public, s-maxage=86400, stale-while-revalidate=604800",
       },
     });
   } catch (error) {

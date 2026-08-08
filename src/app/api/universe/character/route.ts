@@ -56,7 +56,14 @@ export async function GET(request: Request) {
       enemyIds: (detail.character_enemies ?? []).map((e) => e.id),
     };
 
-    return NextResponse.json(payload);
+    return NextResponse.json(payload, {
+      headers: {
+        // Comic Vine data changes slowly. Cache each normalized query at the
+        // edge to avoid repeated upstream calls for popular searches.
+        "Cache-Control":
+          "public, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Comic Vine lookup failed";
